@@ -1,58 +1,57 @@
 import { useState, useEffect } from "react";
 import { headerLogo } from "../assets/images";
 import { hamburger } from "../assets/icons";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(prev => !prev);
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
   const navItems = [
     { name: "Home", id: "home" },
     { name: "Values", id: "services" },
     { name: "Why Us", id: "why-us" },
     { name: "Comfort", id: "comfort" },
-    // { name: "Safety", id: "safety" },
     { name: "FAQ", id: "faq" },
   ];
 
+  const scrollToSection = (id) => {
+    if (location.pathname !== "/") {
+      // Not on landing page → navigate there first, pass section in state
+      navigate("/", { state: { scrollTo: id } });
+    } else {
+      // Already on landing page → scroll directly
+      const section = document.getElementById(id);
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+      setIsMenuOpen(false);
+    }
+  };
+
+  const handleSignInClick = () => navigate("/signin");
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 0);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300
-        ${
-          isScrolled
-            ? "bg-black/40 backdrop-blur-md border-b border-white/10"
-            : "bg-black/80"
-        }
-      `}
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-black/40 backdrop-blur-md border-b border-white/10"
+          : "bg-black/80"
+      }`}
     >
       <nav className="flex justify-between items-center max-w-7xl mx-auto px-6 py-2">
         
         {/* Logo */}
-        <button
-          onClick={() => scrollToSection("home")}
-          className="flex items-center"
-        >
+        <button onClick={() => scrollToSection("home")} className="flex items-center">
           <img
             src={headerLogo}
             alt="Jetour Logo"
@@ -75,24 +74,17 @@ const Nav = () => {
 
         {/* Desktop Sign In */}
         <div className="max-lg:hidden">
-          <button className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-7 py-2 rounded-full transition-all duration-300 hover:opacity-90">
+          <button
+            onClick={handleSignInClick}
+            className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-7 py-2 rounded-full transition-all duration-300 hover:opacity-90"
+          >
             Sign In
           </button>
         </div>
 
         {/* Hamburger */}
-        <button
-          className="lg:hidden"
-          onClick={toggleMenu}
-          aria-label="Toggle Menu"
-        >
-          <img
-            src={hamburger}
-            alt="Menu"
-            width={24}
-            height={24}
-            className="invert"
-          />
+        <button className="lg:hidden" onClick={toggleMenu} aria-label="Toggle Menu">
+          <img src={hamburger} alt="Menu" width={24} height={24} className="invert" />
         </button>
       </nav>
 
@@ -111,7 +103,10 @@ const Nav = () => {
 
           {/* Mobile Sign In */}
           <div className="pt-4">
-            <button className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:opacity-90">
+            <button
+              onClick={handleSignInClick}
+              className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:opacity-90"
+            >
               Sign In
             </button>
           </div>

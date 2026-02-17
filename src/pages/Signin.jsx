@@ -1,0 +1,89 @@
+import React, { useState } from "react";
+import signinBg from "../assets/images/bg_pattern.jpg";
+import { FiUser, FiLock } from "react-icons/fi";
+import { signInWithFirstName } from "../config/authService";
+
+const Signin = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const result = await signInWithFirstName(username, password);
+
+    setLoading(false);
+
+    if (result.success) {
+      alert(`Welcome, ${result.user.firstName}!`);
+      // TODO: navigate to dashboard or update app context
+    } else {
+      setError(result.message);
+    }
+  };
+
+  return (
+    <div className="w-full h-screen flex items-center justify-center relative">
+      <div
+        className="absolute inset-0 opacity-50"
+        style={{
+          backgroundImage: `url(${signinBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <div className="absolute inset-0 bg-black/5" />
+
+      <div className="relative z-10 w-full max-w-md p-10 rounded-3xl bg-white/10 backdrop-blur-xl shadow-2xl border border-white/20 flex flex-col items-center">
+        <h1 className="text-4xl font-bold text-black mb-6 font-palanquin">
+          Welcome Back
+        </h1>
+        <p className="text-black/70 mb-8 text-center">
+          Sign in to your Jetour account and explore the latest models.
+        </p>
+
+        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+          <div className="relative">
+            <FiUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black/60 w-5 h-5 drop-shadow-none" />
+            <input
+              type="text"
+              placeholder="First Name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full py-3 pl-12 pr-4 rounded-xl bg-black/5 placeholder-black/50 text-black focus:outline-none focus:ring-2 focus:ring-cyan-blue focus:bg-black/5 transition"
+              required
+            />
+          </div>
+
+          <div className="relative">
+            <FiLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black/60 w-5 h-5" />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full py-3 pl-12 pr-4 rounded-xl bg-black/5 placeholder-black/50 text-black focus:outline-none focus:ring-2 focus:ring-cyan-blue focus:bg-black/5 transition"
+              required
+            />
+          </div>
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-cyan-blue rounded-xl text-white font-semibold text-lg hover:scale-105 transition-transform duration-300"
+            disabled={loading}
+          >
+            {loading ? "Signing In..." : "Sign In"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Signin;
