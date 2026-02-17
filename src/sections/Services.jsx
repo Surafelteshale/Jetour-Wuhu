@@ -1,40 +1,83 @@
-const Services = () => {
-  const serviceData = [
-  {
-    title: "PREMIUM COMFORT",
-    description:
-      "Spacious interiors, refined materials, and ergonomic design ensure every drive feels relaxed and enjoyable.",
-  },
-  {
-    title: "SMART TECHNOLOGY",
-    description:
-      "Advanced infotainment, intelligent driver assistance, and seamless connectivity designed for modern living.",
-  },
-  {
-    title: "CONFIDENT PERFORMANCE",
-    description:
-      "Efficient engines and responsive handling deliver smooth power and stability across city and highway driving.",
-  },
-  {
-    title: "SAFETY FIRST",
-    description:
-      "Equipped with comprehensive safety systems to protect you and your passengers on every journey.",
-  },
-  {
-    title: "BOLD DESIGN",
-    description:
-      "A distinctive exterior and modern styling that reflect strength, elegance, and contemporary taste.",
-  },
-];
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
+
+const Services = () => {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const itemsRef = useRef([]);
+
+  const serviceData = [
+    {
+      title: "PREMIUM COMFORT",
+      description:
+        "Spacious interiors, refined materials, and ergonomic design ensure every drive feels relaxed and enjoyable.",
+    },
+    {
+      title: "SMART TECHNOLOGY",
+      description:
+        "Advanced infotainment, intelligent driver assistance, and seamless connectivity designed for modern living.",
+    },
+    {
+      title: "CONFIDENT PERFORMANCE",
+      description:
+        "Efficient engines and responsive handling deliver smooth power and stability across city and highway driving.",
+    },
+    {
+      title: "SAFETY FIRST",
+      description:
+        "Equipped with comprehensive safety systems to protect you and your passengers on every journey.",
+    },
+    {
+      title: "BOLD DESIGN",
+      description:
+        "A distinctive exterior and modern styling that reflect strength, elegance, and contemporary taste.",
+    },
+  ];
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+      });
+
+      // Header animation
+      tl.from(headerRef.current.children, {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.15,
+      });
+
+      // Service items
+      tl.from(
+        itemsRef.current,
+        {
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.12,
+        },
+        "-=0.3"
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="max-container padding bg-white">
+    <section ref={sectionRef} className="max-container padding bg-white">
+      
       {/* Section Header */}
-      <div className="mb-16 max-w-3xl">
-        <h2
-          className="text-3xl sm:text-3xl lg:text-4xl font-bold uppercase leading-tight text-black font-palanquin"
-        >
+      <div ref={headerRef} className="mb-16 max-w-3xl">
+        <h2 className="text-3xl sm:text-3xl lg:text-4xl font-bold uppercase leading-tight text-black font-palanquin">
           Intelligent Design <br /> Built for Every Journey
         </h2>
 
@@ -42,7 +85,6 @@ const Services = () => {
           Jetour combines refined comfort, advanced technology, and confident
           performance to deliver a premium driving experience for modern lifestyles.
         </p>
-
       </div>
 
       {/* Services Grid */}
@@ -50,6 +92,7 @@ const Services = () => {
         {serviceData.map((service, index) => (
           <div
             key={index}
+            ref={(el) => (itemsRef.current[index] = el)}
             className="group relative pl-6"
           >
             {/* Accent Line */}
