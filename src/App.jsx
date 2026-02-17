@@ -1,17 +1,20 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Hero, PopularProducts, Comfort, Contact, WhyUs, Faq, Safty, Services, Footer, Nav, Events } from "./sections";
 import Models from "./pages/Models";
-import More from "./pages/More";
-import AllEvents from "./pages/AllEvents";
-import EventsDetail from "./pages/EventsDetail";
+// import More from "./pages/More";
+// import AllEvents from "./pages/AllEvents";
+// import EventsDetail from "./pages/EventsDetail";
 import Signin from "./pages/Signin";
-import ProductDetails from "./pages/ProductDetails";
-import SafetyBlog from './blogs/SafetyBlog';
-import ComfortBlog from './blogs/ComfortBlog';
-import ShowroomBlog from './blogs/ShowroomBlog';
-import ContactUs from './pages/ContactUs';
+// import ProductDetails from "./pages/ProductDetails";
+// import SafetyBlog from './blogs/SafetyBlog';
+// import ComfortBlog from './blogs/ComfortBlog';
+// import ShowroomBlog from './blogs/ShowroomBlog';
+// import ContactUs from './pages/ContactUs';
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
+import { AuthProvider, useAuth  } from "./context/AuthContext";
+
+
 
 const LandingPage = () => {
   const location = useLocation();
@@ -76,22 +79,24 @@ const LandingPage = () => {
 };
 
 const App = () => (
-  <Router>
-    <main className="relative">
-      <Nav />
+  <AuthProvider>
+    <Router>
+      <main className="relative">
+        <Nav />
 
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/models" element={<Models />} />
-        <Route path="/signin" element={<Signin />} />
-        {/* Add more routes as needed */}
-      </Routes>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/models" element={<Models />} />
+          <Route path="/signin" element={<Signin />} />
+          {/* Add more routes as needed */}
+        </Routes>
 
-      <section className="bg-[#363837] padding-x pt-10 pb-8">
-        <Footer />
-      </section>
-    </main>
-  </Router>
+        <section className="bg-black/70 ">
+          <Footer />
+        </section>
+      </main>
+    </Router>
+  </AuthProvider>
 );
 
 export default App;
