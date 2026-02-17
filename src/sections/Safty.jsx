@@ -1,67 +1,51 @@
-import React, { useEffect, useState } from "react";
-import Button from "../components/Button";
-import { Link } from "react-router-dom";
-import { getJetourSafety } from "../config/firestoreHelpers";
+import jetour8Img from "../assets/images/jetour8.webp";
 
-const Safty = () => {
-  const [data, setData] = useState({
-    image: "",
-    tagline: "",
-    title1: "",
-    title2: "",
-    description: "",
-    blog_link: ""
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const safetyData = await getJetourSafety();
-      setData(safetyData);
-    };
-    fetchData();
-  }, []);
-
-  const formattedDescription = data.description
-    ? data.description.split("\n").map((line, i) => (
-        <React.Fragment key={i}>
-          {line}
-          <br />
-        </React.Fragment>
-      ))
-    : null;
-
+const Safety = () => {
   return (
-    <div className="flex h-screen w-full">
-      {/* Left Text */}
-      <div className="w-full md:w-1/2 sm:w-1/2 bg-cyan-blue bg-opacity-85 flex flex-col justify-center items-start text-white px-6 sm:px-20 md:px-14 py-6 md:py-5 sm:py-0">
-        <div className="text-base mb-4 font-palanquin">{data.tagline}</div>
-        <div className="text-4xl font-bold mb-1 tracking-wide font-montserrat">{data.title1}</div>
-        <div className="text-4xl font-bold mb-12 font-montserrat">{data.title2}</div>
-        <div className="text-base leading-relaxed mb-16 font-palanquin">
-          {formattedDescription}
-        </div>
-        {data.blog_link && (
-          <Link to={data.blog_link}>
-            <Button
-              label="Read More"
-              className="bg-black/80 text-white px-6 py-3 rounded-lg shadow-md"
-            />
-          </Link>
-        )}
-      </div>
-
-      {/* Right Image */}
-      <div className="w-1/2 bg-black">
-        {data.image && (
+    <section className="w-full bg-[#333333] overflow-hidden">
+      <div className="w-full flex flex-col lg:flex-row min-h-[500px]">
+        
+        {/* LEFT IMAGE — full bleed from left to center */}
+        <div className="w-full lg:w-1/2 h-[320px] lg:h-auto">
           <img
-            src={data.image}
-            alt="Jetour Safety Interior"
-            className="object-cover h-full w-full"
+            src={jetour8Img}
+            alt="Jetour Safety Feature"
+            className="w-full h-full object-cover"
           />
-        )}
+        </div>
+
+        {/* RIGHT CONTENT */}
+        <div className="w-full lg:w-1/2 flex items-center">
+          <div className="max-w-xl px-6 py-16 sm:px-12 lg:px-16">
+            
+            {/* Background Accent Text */}
+            <span
+              className="text-5xl md:text-7xl font-bold mb-4 uppercase tracking-widest text-white/10 block"
+              style={{ fontFamily: "Doxent, sans-serif" }}
+            >
+              SMART
+            </span>
+
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight uppercase mb-6 font-palanquin">
+              BUILT FOR REAL-WORLD JOURNEYS
+            </h2>
+
+            <div className="flex items-start gap-4">
+              {/* Accent */}
+              <div className="w-3 h-3 bg-cyan-blue mt-2 flex-shrink-0" />
+
+              <p className="font-montserrat text-white/80 text-base md:text-lg leading-relaxed">
+                From urban commutes to long adventures, Jetour integrates smart
+                assistance and structural protection to ensure peace of mind on
+                every drive.
+              </p>
+            </div>
+
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default Safty;
+export default Safety;

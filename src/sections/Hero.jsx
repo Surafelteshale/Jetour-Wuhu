@@ -23,7 +23,7 @@ const Hero = () => {
             <span className="text-white">With Confidence</span>
           </h1>
 
-          <p className="font-montserrat text-white/80 text-lg sm:text-xl leading-8 mt-6 max-w-xl">
+          <p className="font-montserrat text-white/80 text-sm sm:text-lg leading-8 mt-6 max-w-xl">
             Compare the latest Jetour SUVs and PHEV models, explore features and trims,
             view transparent pricing, all in one modern platform.
           </p>

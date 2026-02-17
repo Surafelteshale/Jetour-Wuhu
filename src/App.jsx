@@ -20,33 +20,33 @@ const App = () => (
         <Route path="/" element={
           <>
             <Helmet>
-              <title>Jetour Ethiopia | Premium SUVs, Luxury & High-Performance Cars</title>
+              <title>Jetour Wuhu | Premium SUVs, Luxury & High-Performance Cars</title>
               <meta 
                 name="description" 
-                content="Explore Jetour Ethiopia – stylish SUVs, family cars, and high-performance vehicles. Discover Jetour models including X70, X90, T-X, and more. Enjoy advanced safety, premium comfort, fuel efficiency, and cutting-edge technology. Book a test drive, check pricing, visit our showroom in Addis Ababa, and compare with other SUVs in Ethiopia." 
+                content="Explore Jetour Wuhu – stylish SUVs, family cars, and high-performance vehicles. Discover Jetour models including X70, X90, T-X, and more. Enjoy advanced safety, premium comfort, fuel efficiency, and cutting-edge technology. Book a test drive, check pricing, and compare with other SUVs." 
               />
               <meta 
                 name="keywords" 
                 content="
-                  Jetour Ethiopia, Jetour, Jetour SUV, Jetour X70, Jetour X90, Jetour T2, family car, Jetour luxury SUV, Jetour high-performance, comfort car, safety car, Jetour fuel-efficient, Jetour technology, Jetour Addis Ababa, Jetour dealership, buy Jetour, Ethiopia car dealer, test drive Jetour, Ethiopian SUVs, SUV comparison Ethiopia, new cars Ethiopia, 2025 Jetour, Ethiopian car reviews, SUV pricing Ethiopia, premium SUVs Ethiopia, luxury cars Ethiopia, Jetour showroom, automotive Ethiopia, vehicle Ethiopia, car deals Ethiopia, crossover SUV Ethiopia, Jetour online booking, Jetour models Ethiopia, Jetour offers, reliable SUVs, advanced car technology, stylish SUV Ethiopia, Ethiopian auto market
+                  Jetour Wuhu, Jetour, Jetour SUV, Jetour X70, Jetour X90, Jetour T2, family car, Jetour luxury SUV, Jetour high-performance, comfort car, safety car, Jetour fuel-efficient, Jetour technology, Jetour , Jetour dealership, buy Jetour,car dealer, test drive Jetour, China SUVs, SUV comparison China, new cars China, 2025 Jetour, China car reviews, SUV pricing China, premium SUVs China, luxury cars china, Jetour showroom, automotive china, vehicle china, car deals china, crossover SUV china, Jetour online booking, Jetour models china, Jetour offers, reliable SUVs, advanced car technology, stylish SUV china, chsinese auto market
                 " 
               />
             </Helmet>
 
 
-            <section className=" ">
+            <section className=" " id="home">
               <Hero />
             </section>
-            <section className="padding-x py-8">
+            <section className="padding-x py-8" id="services">
               <Services />
             </section>
             {/* <section className="bg-pale-blue">
               <PopularProducts />
             </section> */}
-            <section className="w-full">
+            <section className="w-full" id="why-us">
               <WhyUs />
             </section>
-            <section className="w-full">
+            <section className="w-full" id="comfort">
               <Comfort />
             </section>
             <section className="w-full">
@@ -55,7 +55,7 @@ const App = () => (
             {/* <section className="w-full">
               <Events />
             </section> */}
-            <section className="padding">
+            <section id="faq" className="padding">
               <Faq />
             </section>
             {/* <section className="w-full">
@@ -65,14 +65,14 @@ const App = () => (
         } />
         
         <Route path="/models" element={<Models />} />
-        <Route path="/more" element={<More />} />
-        <Route path="/product-details/:modelName" element={<ProductDetails />} />
-        <Route path="/blogs/SafetyBlog" element={<SafetyBlog />} />
+        {/* <Route path="/more" element={<More />} /> */}
+        {/* <Route path="/product-details/:modelName" element={<ProductDetails />} /> */}
+        {/* <Route path="/blogs/SafetyBlog" element={<SafetyBlog />} />
         <Route path="/blogs/ComfortBlog" element={<ComfortBlog />} />
         <Route path="/blogs/ShowroomBlog" element={<ShowroomBlog />} />
-        <Route path="/pages/ContactUs" element={<ContactUs />} />
+        <Route path="/pages/ContactUs" element={<ContactUs />} /> */}
         {/* <Route path="/all-events" element={<AllEvents />} /> */}
-        <Route path="/events-detail" element={<EventsDetail />} />
+        {/* <Route path="/events-detail" element={<EventsDetail />} /> */}
         
 
       </Routes>

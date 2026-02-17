@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import { headerLogo } from "../assets/images";
 import { hamburger } from "../assets/icons";
 
@@ -11,6 +10,14 @@ const Nav = () => {
     setIsMenuOpen(prev => !prev);
   };
 
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      setIsMenuOpen(false);
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -19,6 +26,15 @@ const Nav = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navItems = [
+    { name: "Home", id: "home" },
+    { name: "Values", id: "services" },
+    { name: "Why Us", id: "why-us" },
+    { name: "Comfort", id: "comfort" },
+    // { name: "Safety", id: "safety" },
+    { name: "FAQ", id: "faq" },
+  ];
 
   return (
     <header
@@ -33,33 +49,27 @@ const Nav = () => {
       <nav className="flex justify-between items-center max-w-7xl mx-auto px-6 py-2">
         
         {/* Logo */}
-        <NavLink to="/" className="flex items-center">
+        <button
+          onClick={() => scrollToSection("home")}
+          className="flex items-center"
+        >
           <img
             src={headerLogo}
             alt="Jetour Logo"
             className="w-[160px] h-[70px]"
           />
-        </NavLink>
+        </button>
 
         {/* Desktop Navigation */}
         <div className="flex space-x-8 uppercase max-lg:hidden">
-          {[
-            { name: "Home", path: "/" },
-            { name: "Models", path: "/models" },
-            { name: "Contact Us", path: "/pages/ContactUs" },
-            { name: "More", path: "/more" },
-          ].map(link => (
-            <NavLink
-              key={link.name}
-              to={link.path}
-              className={({ isActive }) =>
-                isActive
-                  ? "text-white font-semibold text-sm font-montserrat"
-                  : "text-gray-300 text-sm font-montserrat hover:opacity-70 transition"
-              }
+          {navItems.map(item => (
+            <button
+              key={item.name}
+              onClick={() => scrollToSection(item.id)}
+              className="text-gray-300 text-sm font-montserrat hover:text-white transition"
             >
-              {link.name}
-            </NavLink>
+              {item.name}
+            </button>
           ))}
         </div>
 
@@ -89,23 +99,14 @@ const Nav = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="lg:hidden bg-black/70 backdrop-blur-md border-t border-white/10 px-6 py-4 space-y-2">
-          {[
-            { name: "Models", path: "/models" },
-            { name: "Contact Us", path: "/pages/ContactUs" },
-            { name: "More", path: "/more" },
-          ].map(link => (
-            <NavLink
-              key={link.name}
-              to={link.path}
-              onClick={toggleMenu}
-              className={({ isActive }) =>
-                isActive
-                  ? "block text-white font-semibold text-sm font-montserrat py-2"
-                  : "block text-gray-300 text-sm font-montserrat py-2 hover:opacity-70 transition"
-              }
+          {navItems.map(item => (
+            <button
+              key={item.name}
+              onClick={() => scrollToSection(item.id)}
+              className="block w-full text-left text-gray-300 text-sm font-montserrat py-2 hover:text-white transition"
             >
-              {link.name}
-            </NavLink>
+              {item.name}
+            </button>
           ))}
 
           {/* Mobile Sign In */}
