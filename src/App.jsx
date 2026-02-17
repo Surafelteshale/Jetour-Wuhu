@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Hero, PopularProducts, Comfort, Contact, Faq, Safty, Services, Footer, Nav, Events } from "./sections";
+import { Hero, PopularProducts, Comfort, Contact, WhyUs, Faq, Safty, Services, Footer, Nav, Events } from "./sections";
 import Models from "./pages/Models";
 import More from "./pages/More";
 import AllEvents from "./pages/AllEvents";
@@ -34,14 +34,17 @@ const App = () => (
             </Helmet>
 
 
-            <section className="xl:padding-1 wide:padding-r ">
+            <section className=" ">
               <Hero />
             </section>
             <section className="padding-x py-8">
               <Services />
             </section>
-            <section className="bg-pale-blue">
+            {/* <section className="bg-pale-blue">
               <PopularProducts />
+            </section> */}
+            <section className="w-full">
+              <WhyUs />
             </section>
             <section className="w-full">
               <Comfort />
@@ -55,9 +58,9 @@ const App = () => (
             <section className="padding">
               <Faq />
             </section>
-            <section className="w-full">
+            {/* <section className="w-full">
               <Contact />
-            </section>
+            </section> */}
           </>
         } />
         

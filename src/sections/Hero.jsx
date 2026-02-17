@@ -1,65 +1,34 @@
-import { useEffect, useState } from "react";
-import { getJetourHero } from "../config/firestoreHelpers";
+import heroImage from "../assets/images/hero.jpg";
 
 const Hero = () => {
-  const [heroData, setHeroData] = useState({
-    title: "",
-    highlight: "",
-    subtitle: "",
-    image: ""
-  });
-
-  useEffect(() => {
-    const fetchHero = async () => {
-      const data = await getJetourHero();
-      setHeroData(data);
-    };
-
-    fetchHero();
-  }, []);
-
-  // Split the title to inject the highlight word dynamically
-  const splitTitle = () => {
-    const parts = heroData.title.split(heroData.highlight);
-    return parts.length === 2 ? parts : [heroData.title];
-  };
-
   return (
-    <section 
+    <section
       id="home"
-      className="w-full flex flex-col md:flex-row items-center justify-between min-h-screen max-container bg-white px-10 xl:px-20 pt-16 pb-10"
+      className="relative min-h-screen w-full flex items-center"
     >
-      {/* Left Side - Text */}
-      <div className="relative xl:w-2/5 md:w-1/2 flex flex-col justify-center items-start text-left max-w-lg mt-10 ml-10">
-        <h1 className="font-palanquin text-4xl md:text-5xl xl:text-6xl leading-tight font-bold text-black">
-          {splitTitle().length === 2 ? (
-            <>
-              <span className="relative pr-4 xl:pr-10">{splitTitle()[0]}</span>
-              <br />
-              <span className="text-cyan-blue">{heroData.highlight}</span>
-              {splitTitle()[1]}
-            </>
-          ) : (
-            <>{heroData.title}</>
-          )}
-        </h1>
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroImage})` }}
+      />
 
-        <p className="font-montserrat text-gray-600 text-lg leading-8 mt-6 mb-8">
-          {heroData.subtitle}
-        </p>
-      </div>
+      {/* Black Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-black/80  to-transparent" />
 
-      {/* Right Side - Image */}
-      <div className="relative flex-1 flex justify-end items-center w-full xl:w-2/4 md:w-1/2 lg:mt-10">
-        {heroData.image && (
-          <img 
-            src={heroData.image}
-            alt="Jetour Car"
-            width={1000}
-            height={1000}
-            className="object-contain"
-          />
-        )}
+      {/* Content */}
+      <div className="relative z-10 max-container w-full px-8 sm:px-16">
+        <div className="max-w-2xl">
+          <h1 className="font-palanquin text-white text-4xl sm:text-5xl xl:text-6xl font-bold leading-tight">
+            Explore Jetour Models <br />
+            <span className="text-white">With Confidence</span>
+          </h1>
+
+          <p className="font-montserrat text-white/80 text-lg sm:text-xl leading-8 mt-6 max-w-xl">
+            Compare the latest Jetour SUVs and PHEV models, explore features and trims,
+            view transparent pricing, all in one modern platform.
+          </p>
+
+        </div>
       </div>
     </section>
   );

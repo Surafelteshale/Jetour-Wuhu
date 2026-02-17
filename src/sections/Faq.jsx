@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Accordian, { AccordianItem } from "../components/Accordian";
 import { getJetourFaq } from "../config/firestoreHelpers";
+import comfortAdventure from "../assets/images/comfort_adventure.webp";
 
 const Faq = () => {
   const [faqData, setFaqData] = useState({
@@ -27,14 +28,13 @@ const Faq = () => {
       <div className="flex flex-col md:flex-row items-center justify-center w-full px-4 md:px-0">
         {/* Image Section */}
         <div className="md:w-1/2 p-4">
-          {faqData.image && (
-            <img
-              src={faqData.image}
-              alt="Jetour Car"
-              className="max-w-full h-auto rounded-lg shadow-lg"
-            />
-          )}
+          <img
+            src={comfortAdventure}
+            alt="Jetour comfort and adventure"
+            className="max-w-full h-auto rounded-lg shadow-lg"
+          />
         </div>
+
 
         {/* FAQ Accordion */}
         <div className="md:w-1/2 p-4">

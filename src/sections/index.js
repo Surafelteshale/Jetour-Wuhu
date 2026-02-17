@@ -8,6 +8,7 @@ import Safty from "./Safty";
 import Services from "./Services"; // Adjust path for Services if outside `sections`
 import PopularProducts from "./PopularProducts"; // Adjust path for PopularProducts
 import Events from "./Events"; 
+import WhyUs from "./WhyUs"; 
 
 export {
   Hero,
@@ -20,4 +21,5 @@ export {
   Safty,
   Services,
   Footer,
+  WhyUs,
 };

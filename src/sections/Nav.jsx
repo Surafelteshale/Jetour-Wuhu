@@ -1,96 +1,119 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { headerLogo, headerLogo2 } from '../assets/images';
-import { hamburger } from '../assets/icons';
+import { headerLogo } from "../assets/images";
+import { hamburger } from "../assets/icons";
 
 const Nav = () => {
-  // State to toggle the mobile menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Toggle function for the hamburger menu
   const toggleMenu = () => {
     setIsMenuOpen(prev => !prev);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="bg-[#363837] py-2">
-      <nav className="flex justify-between items-center max-w-7xl mx-auto px-6">
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300
+        ${
+          isScrolled
+            ? "bg-black/40 backdrop-blur-md border-b border-white/10"
+            : "bg-black/80"
+        }
+      `}
+    >
+      <nav className="flex justify-between items-center max-w-7xl mx-auto px-6 py-2">
         
         {/* Logo */}
-        <div className="text-center">
-          <NavLink to="/">
-            <img src={headerLogo} alt="Jetour Logo" className="w-[160px] h-[70px] mx-auto" />
-          </NavLink>
+        <NavLink to="/" className="flex items-center">
+          <img
+            src={headerLogo}
+            alt="Jetour Logo"
+            className="w-[160px] h-[70px]"
+          />
+        </NavLink>
+
+        {/* Desktop Navigation */}
+        <div className="flex space-x-8 uppercase max-lg:hidden">
+          {[
+            { name: "Home", path: "/" },
+            { name: "Models", path: "/models" },
+            { name: "Contact Us", path: "/pages/ContactUs" },
+            { name: "More", path: "/more" },
+          ].map(link => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-white font-semibold text-sm font-montserrat"
+                  : "text-gray-300 text-sm font-montserrat hover:opacity-70 transition"
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
         </div>
 
-        {/* Navigation Links (Desktop View) */}
-        <div className="flex space-x-8 text-white text-base uppercase max-lg:hidden">
-          <NavLink 
-            to="/" 
-            className={({ isActive }) => isActive ? "text-white font-semibold text-sm font-montserrat" : "text-gray-400 text-sm font-montserrat hover:opacity-50"}
-          >
-            Home
-          </NavLink>
-
-          <NavLink 
-            to="/models" 
-            className={({ isActive }) => isActive ? "text-white font-semibold text-sm font-montserrat" : "text-gray-400 text-sm font-montserrat hover:opacity-50"}
-          >
-            Models
-          </NavLink>
-
-          <NavLink 
-            to="/pages/ContactUs" 
-            className={({ isActive }) => isActive ? "text-white font-semibold text-sm font-montserrat" : "text-gray-400 text-sm font-montserrat hover:opacity-50"}
-          >
-            Contact Us
-          </NavLink>
-
-          <NavLink 
-            to="/more" 
-            className={({ isActive }) => isActive ? "text-white font-semibold text-sm font-montserrat" : "text-gray-400 text-sm font-montserrat hover:opacity-50"}
-          >
-            More
-          </NavLink>
+        {/* Desktop Sign In */}
+        <div className="max-lg:hidden">
+          <button className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-7 py-2 rounded-full transition-all duration-300 hover:opacity-90">
+            Sign In
+          </button>
         </div>
 
-        {/* Secondary Logo */}
-        <div className='max-lg:hidden'>
-          <img src={headerLogo2} alt="Suweys Motors Logo" className="h-11" />
-        </div>
-
-        {/* Mobile Menu (Hamburger) */}
-        <div className='hidden max-lg:block' onClick={toggleMenu}>
-          <img src={hamburger} alt="Hamburger" width={25} height={25} className="filter invert" />
-        </div>
+        {/* Hamburger */}
+        <button
+          className="lg:hidden"
+          onClick={toggleMenu}
+          aria-label="Toggle Menu"
+        >
+          <img
+            src={hamburger}
+            alt="Menu"
+            width={24}
+            height={24}
+            className="invert"
+          />
+        </button>
       </nav>
 
-      {/* Mobile Links */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="max-lg:block bg-[#363837] py-4 px-6">
-          <NavLink 
-            to="/models" 
-            className={({ isActive }) => isActive ? "text-white font-semibold text-sm font-montserrat block py-2" : "text-gray-400 text-sm font-montserrat block py-2 hover:opacity-50"}
-            onClick={toggleMenu} // Close the menu after clicking
-          >
-            Models
-          </NavLink>
+        <div className="lg:hidden bg-black/70 backdrop-blur-md border-t border-white/10 px-6 py-4 space-y-2">
+          {[
+            { name: "Models", path: "/models" },
+            { name: "Contact Us", path: "/pages/ContactUs" },
+            { name: "More", path: "/more" },
+          ].map(link => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              onClick={toggleMenu}
+              className={({ isActive }) =>
+                isActive
+                  ? "block text-white font-semibold text-sm font-montserrat py-2"
+                  : "block text-gray-300 text-sm font-montserrat py-2 hover:opacity-70 transition"
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
 
-          <NavLink 
-            to="/pages/ContactUs" 
-            className={({ isActive }) => isActive ? "text-white font-semibold text-sm font-montserrat block py-2" : "text-gray-400 text-sm font-montserrat block py-2 hover:opacity-50"}
-            onClick={toggleMenu} // Close the menu after clicking
-          >
-            Contact Us
-          </NavLink>
-
-          <NavLink 
-            to="/more" 
-            className={({ isActive }) => isActive ? "text-white font-semibold text-sm font-montserrat block py-2" : "text-gray-400 text-sm font-montserrat block py-2 hover:opacity-50"}
-            onClick={toggleMenu} // Close the menu after clicking
-          >
-            More
-          </NavLink>
+          {/* Mobile Sign In */}
+          <div className="pt-4">
+            <button className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:opacity-90">
+              Sign In
+            </button>
+          </div>
         </div>
       )}
     </header>
