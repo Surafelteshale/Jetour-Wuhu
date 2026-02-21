@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import signinBg from "../assets/images/bg_pattern.jpg";
 import { FiUser, FiLock } from "react-icons/fi";
@@ -7,12 +7,16 @@ import { useAuth } from "../context/AuthContext";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // 👈 from AuthContext
+  const { login } = useAuth();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

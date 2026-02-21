@@ -1,10 +1,10 @@
 import { instagram } from "../assets/icons";
 import tiktokIcon from "../assets/icons/tiktok.svg";
 import linkedinIcon from "../assets/icons/linkedin.svg";
-import car1 from '../assets/images/car_model/car1.webp';
-import car2 from '../assets/images/car_model/car2.webp';
-import car3 from '../assets/images/car_model/car3.webp';
-import car4 from '../assets/images/car_model/car4.webp';
+import car1 from '../assets/images/car_model/T1.webp';
+import car2 from '../assets/images/car_model/T2.webp';
+import car3 from '../assets/images/car_model/DASHING.webp';
+import car4 from '../assets/images/car_model/X50.webp';
 import Dashing1 from '/models/Dashing1.webp';
 import Dashing2 from '/models/Dashing2.webp';
 import Dashing3 from '/models/Dashing3.webp';
@@ -41,6 +41,7 @@ import X70_PLUS_deepblue from '../assets/images/car_color/X70 PLUS_deepblue.webp
 import X70_PLUS_lightblue from '../assets/images/car_color/X70 PLUS_lightblue.webp';
 import X70_PLUS_red from '../assets/images/car_color/X70 PLUS_red.webp';
 import X70_PLUS_white from '../assets/images/car_color/X70 PLUS_white.webp';
+
 
 export const Dashing = [Dashing1, Dashing2, Dashing3, Dashing4];
 export const Dashing_color = [Dashing_black, Dashing_cyan, Dashing_grey, Dashing_red, Dashing_white];
