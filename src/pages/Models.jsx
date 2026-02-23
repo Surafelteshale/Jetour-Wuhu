@@ -2,21 +2,21 @@ import React, { useEffect } from "react";
 import forestImage from "../assets/images/forest.webp";
 import { Helmet } from "react-helmet";
 
-import G700 from "../assets/images/car_model/G700.webp";
+import G700 from "../assets/images/car_model/g700.webp";
 
-import L6 from "../assets/images/car_model/L6.webp";
-import L7 from "../assets/images/car_model/L7.webp";
-import L9 from "../assets/images/car_model/L9.webp";
+import L6 from "../assets/images/car_model/l6.webp";
+import L7 from "../assets/images/car_model/l7.webp";
+import L9 from "../assets/images/car_model/l9.webp";
 
-import T1 from "../assets/images/car_model/T1.webp";
-import T2 from "../assets/images/car_model/T2.webp";
+import T1 from "../assets/images/car_model/t1.webp";
+import T2 from "../assets/images/car_model/t2.webp";
 
-import X50 from "../assets/images/car_model/X50.webp";
+import X50 from "../assets/images/car_model/x50.webp";
 // import X70 from "../assets/images/car_model/X70.webp";
-import X70PLUS from "../assets/images/car_model/X70 PLUS.webp";
+import X70PLUS from "../assets/images/car_model/x70 plus.webp";
 // import X90 from "../assets/images/car_model/X90.webp";
 // import X90Plus from "../assets/images/car_model/X90Plus.webp";
-import Dashing from "../assets/images/car_model/Dashing.webp";
+import Dashing from "../assets/images/car_model/dashing.webp";
 
 
 /* =========================
