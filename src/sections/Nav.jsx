@@ -3,6 +3,7 @@ import { headerLogo } from "../assets/images";
 import { hamburger } from "../assets/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -114,6 +115,7 @@ const Nav = () => {
                     onClick={() => {
                       logout();
                       setOpen(false);
+                      navigate("/");
                     }}
                     className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100 transition"
                   >
@@ -177,6 +179,7 @@ const Nav = () => {
                     onClick={() => {
                       logout();
                       setOpen(false);
+                      navigate("/");
                     }}
                     className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100 transition"
                   >
