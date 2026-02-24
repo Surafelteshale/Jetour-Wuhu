@@ -1,28 +1,19 @@
-import React, { useEffect } from "react";
-import forestImage from "../assets/images/forest.webp";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import G700 from "../assets/images/car_model/g700.webp";
-
 import L6 from "../assets/images/car_model/l6.webp";
 import L7 from "../assets/images/car_model/l7.webp";
 import L9 from "../assets/images/car_model/l9.webp";
-
 import T1 from "../assets/images/car_model/t1.webp";
 import T2 from "../assets/images/car_model/t2.webp";
-
 import X50 from "../assets/images/car_model/x50.webp";
-// import X70 from "../assets/images/car_model/X70.webp";
 import X70PLUS from "../assets/images/car_model/x70 plus.webp";
-// import X90 from "../assets/images/car_model/X90.webp";
-// import X90Plus from "../assets/images/car_model/X90Plus.webp";
 import Dashing from "../assets/images/car_model/dashing.webp";
-
 
 /* =========================
    MODELS DATA (STATIC)
    ========================= */
-
 const modelsData = {
   phev: {
     title: "Plug-in Hybrid Electric Vehicle (PHEV)",
@@ -30,160 +21,104 @@ const modelsData = {
       "G Series": [
         {
           id: "g700",
-          name: "Jetour G700",
+          name: "Jetour G700 - CKD",
           img: G700,
           topSpeed: "180 km/h",
           power: "516 hp",
           maxTorque: "800 Nm",
-          displacement: "1.5T Hybrid",
-          prices: {
-            "2025": "$30,000",
-          },
+          displacement: "2000 CC",
+          prices: { "2025": "$16,100" },
         },
       ],
       "L Series": [
         {
           id: "l6",
-          name: "Jetour L6",
+          name: "Jetour L6 - CKD",
           img: L6,
           topSpeed: "185 km/h",
           power: "381 hp",
           maxTorque: "610 Nm",
-          displacement: "1.5T Hybrid",
-          prices: {
-            "2025": "$13,660",
-            "2026": "$14,893.64",
-          },
+          displacement: "1498 CC",
+          prices: { "2025": "$11,050.00", "2026": "$11,100.00" },
         },
         {
           id: "l7",
-          name: "Jetour L7",
+          name: "Jetour L7 - CKD",
           img: L7,
           topSpeed: "190 km/h",
           power: "449 hp",
           maxTorque: "660 Nm",
-          displacement: "1.5T Hybrid",
-          prices: {
-            "2025": "$20,000",
-            "2026": "$20,916.94",
-          },
+          displacement: "1498 CC",
+          prices: { "2025": "$11,300.00", "2026": "$11,340.00" },
         },
         {
           id: "l9",
-          name: "Jetour L9",
+          name: "Jetour L9 - CKD",
           img: L9,
           topSpeed: "195 km/h",
           power: "456 hp",
           maxTorque: "700 Nm",
-          displacement: "1.5T Hybrid",
-          prices: {
-            "2025": "$12,250",
-            "2026": "$16,715",
-          },
+          displacement: "1498 CC",
+          prices: { "2025": "$12,250.00", "2026": "$12,310.00" },
         },
       ],
       "T Series": [
         {
           id: "t1",
-          name: "Jetour T1",
+          name: "Jetour T1 - CKD",
           img: T1,
           topSpeed: "180 km/h",
           power: "375 hp",
           maxTorque: "600 Nm",
-          displacement: "1.5T Hybrid",
-          prices: {
-            "2026": "$19,400",
-          },
+          displacement: "1498 CC",
+          prices: { "2026": "$13,770.00" },
         },
         {
           id: "t2",
-          name: "Jetour T2",
+          name: "Jetour T2 - CKD",
           img: T2,
           topSpeed: "190 km/h",
           power: "449 hp",
           maxTorque: "620 Nm",
-          displacement: "1.5T Hybrid",
-          prices: {
-            "2025": "$18,682",
-            "2026": "$19,682",
-          },
+          displacement: "1498 CC",
+          prices: { "2025": "$14,200.00", "2026": "$14,300.00" },
         },
       ],
     },
   },
-
   fuel: {
     title: "Fuel Models",
     series: {
       "X Series": [
         {
           id: "x50",
-          name: "Jetour X50",
+          name: "Jetour X50 - CKD",
           img: X50,
           topSpeed: "180 km/h",
           power: "156 hp",
           maxTorque: "230 Nm",
-          displacement: "1.5L",
-          prices: {
-            "2025": "$8,630",
-            "2026": "$10,000",
-          },
+          displacement: "1498 CC",
+          prices: { "2025": "$7,130.00", "2026": "$7,130.00" },
         },
-        // {
-        //   id: "x70",
-        //   name: "Jetour X70",
-        //   img: X70,
-        //   topSpeed: "185 km/h",
-        //   power: "197 hp",
-        //   maxTorque: "290 Nm",
-        //   displacement: "1.6T",
-        //   price: "$200,000",
-        // },
         {
           id: "x70PLUS",
-          name: "Jetour X70PLUS",
+          name: "Jetour X70PLUS - CKD",
           img: X70PLUS,
           topSpeed: "190 km/h",
           power: "197 hp",
           maxTorque: "290 Nm",
-          displacement: "1.6T",
-          prices: {
-            "2025": "$14,000",
-            "2026": "$15,000",
-          },
+          displacement: "1499 CC",
+          prices: { "2025": "$9,850.00", "2026": "$9,910.00" },
         },
-        // {
-        //   id: "x90",
-        //   name: "Jetour X90",
-        //   img: X90,
-        //   topSpeed: "190 km/h",
-        //   power: "197 hp",
-        //   maxTorque: "320 Nm",
-        //   displacement: "2.0T",
-        //   price: "$200,000",
-        // },
-        // {
-        //   id: "x90plus",
-        //   name: "Jetour X90 Plus",
-        //   img: X90Plus,
-        //   topSpeed: "195 km/h",
-        //   power: "254 hp",
-        //   maxTorque: "390 Nm",
-        //   displacement: "2.0T",
-        //   price: "$200,000",
-        // },
         {
           id: "dashing",
-          name: "Jetour Dashing",
+          name: "Jetour Dashing - CKD",
           img: Dashing,
           topSpeed: "185 km/h",
           power: "197 hp",
           maxTorque: "290 Nm",
-          displacement: "1.6T",
-          prices: {
-            "2025": "$12,571",
-            "2026": "$14,000",
-          },
+          displacement: "1,498 cc",
+          prices: { "2025": "$9,700.00", "2026": "$9,760.00" },
         },
       ],
     },
@@ -191,116 +126,145 @@ const modelsData = {
 };
 
 /* =========================
-   REUSABLE GRID
+   REUSABLE COMPONENTS
    ========================= */
 
-const CarGrid = ({ models }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    {models.map((car) => (
-      <div
-        key={car.id}
-        className="bg-white rounded-xl shadow-3xl overflow-hidden hover:scale-105 transition duration-300"
-      >
-        <img
-          src={car.img}
-          alt={car.name}
-          className="w-full h-48 object-cover"
+const VehicleTabs = ({ activeTab, setActiveTab }) => {
+  const tabs = ["500 Vehicles", "1000 Vehicles", "2000 Vehicles"];
+
+  return (
+    <div className="flex flex-col items-center mb-20 space-y-6">
+      <p className="text-gray-500 font-montserrat tracking-widest uppercase text-xs font-bold">
+        Choose your yearly amount for a custom discount.
+      </p>
+      
+      <div className="relative bg-white/70 backdrop-blur-md border border-gray-200 p-1.5 rounded-3xl shadow-xl flex items-center w-full max-w-xl">
+        <div 
+          className="absolute h-[85%] transition-all duration-500 ease-out bg-cyan-blue rounded-full shadow-lg shadow-cyan-blue/30"
+          style={{
+            width: `${100 / tabs.length}%`,
+            left: `${(tabs.indexOf(activeTab) * 100) / tabs.length}%`,
+            transform: `translateX(${tabs.indexOf(activeTab) === 0 ? '6px' : tabs.indexOf(activeTab) === 2 ? '-6px' : '0px'})`
+          }}
         />
 
-        <div className="p-6">
-          <h2 className="text-2xl font-semibold mb-7 font-palanquin">
-            {car.name}
-          </h2>
-
-          <div className="grid grid-cols-2 gap-4 text-gray-600 font-montserrat">
-            <div>
-              <p className="text-sm text-cyan-blue">Top Speed</p>
-              <p className="font-medium">{car.topSpeed}</p>
-            </div>
-            <div>
-              <p className="text-sm text-cyan-blue">Power</p>
-              <p className="font-medium">{car.power}</p>
-            </div>
-            <div>
-              <p className="text-sm text-cyan-blue">Max Torque</p>
-              <p className="font-medium">{car.maxTorque}</p>
-            </div>
-            <div>
-              <p className="text-sm text-cyan-blue">Displacement</p>
-              <p className="font-medium">{car.displacement}</p>
-            </div>
-          </div>
-
-          {/* discount */}
-          <div className="relative group overflow-hidden pr-6 mt-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl transition-all duration-300 hover:border-white/40">
-  
-          {/* The "Sheen" - This creates the light-catching effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none" />
-          
-          {/* Optional: Animated Glow following the mouse (simplified here as a static corner glow) */}
-          <div className="absolute -top-10 -right-10 h-32 w-32 bg-cyan-400/20 blur-3xl rounded-full" />
-
-          <div className="relative px-6 py-5 pr-5 font-montserrat">
-            {/* Header with a subtle text glow */}
-            <p className="text-xs font-bold uppercase tracking-widest text-cyan-blue mb-3 drop-shadow-sm">
-              Annual Production Discount
-            </p>
-
-            <div className="space-y-3">
-              <div className="flex justify-between items-center text-black/90">
-                <span className="text-sm font-medium">1,000 vehicles / yr</span>
-                <span className="px-2 py-1 rounded-lg bg-white/10 border border-cyan-400/30 text-xs font-bold text-cyan-blue">
-                  15% OFF
-                </span>
-              </div>
-
-              <div className="flex justify-between items-center text-black/90">
-                <span className="text-sm font-medium">2,000 vehicles / yr</span>
-                <span className="px-2 py-1 rounded-lg border border-cyan-400/30 text-xs font-bold text-cyan-blue">
-                  30% OFF
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-          <div className="mt-8 font-montserrat">
-            {/* Render 2025 only if it exists */}
-            {car.prices?.["2025"] && (
-              <div className="flex justify-between items-center text-sm text-gray-700">
-                <span className="font-medium">2025 Model</span>
-                <span className="font-semibold text-cyan-blue">
-                  {car.prices["2025"]}
-                </span>
-              </div>
-            )}
-
-            {/* Divider: Only shows if BOTH 2025 and 2026 exist */}
-            {car.prices?.["2025"] && car.prices?.["2026"] && (
-              <div className="my-2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-            )}
-
-            {/* Render 2026 only if it exists */}
-            {car.prices?.["2026"] && (
-              <div className="flex justify-between items-center text-base">
-                <span className="font-semibold text-gray-900">2026 Model</span>
-                <span className="font-bold text-cyan-blue text-xl font-palanquin">
-                  {car.prices["2026"]}
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`relative z-10 flex-1 py-3 text-sm font-semibold transition-colors duration-300 font-montserrat ${
+              activeTab === tab ? "text-white" : "text-gray-500 hover:text-gray-800"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
-    ))}
-  </div>
-);
+    </div>
+  );
+};
+
+const CarGrid = ({ models, activeTab }) => {
+  // Logic to calculate discount based on tab
+  const calculatePrice = (basePrice) => {
+    const numericValue = parseFloat(basePrice.replace(/[$,]/g, ""));
+    let finalPrice = numericValue;
+
+    if (activeTab === "1000 Vehicles") {
+      finalPrice = numericValue * 0.85; // 15% discount
+    } else if (activeTab === "2000 Vehicles") {
+      finalPrice = numericValue * 0.70; // 30% discount
+    }
+
+    return `$${finalPrice.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  };
+
+  // Determine discount percentage for display
+  const discountLabel = 
+    activeTab === "1000 Vehicles" ? "15%" : 
+    activeTab === "2000 Vehicles" ? "30%" : "0%";
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {models.map((car) => (
+        <div
+          key={car.id}
+          className="bg-white rounded-xl shadow-3xl overflow-hidden hover:scale-105 transition duration-300"
+        >
+          <img src={car.img} alt={car.name} className="w-full h-48 object-cover" />
+          <div className="p-6">
+            <h2 className="text-2xl font-semibold mb-7 font-palanquin">{car.name}</h2>
+            <div className="grid grid-cols-2 gap-4 text-gray-600 font-montserrat text-sm">
+              <div>
+                <p className="text-cyan-blue">Top Speed</p>
+                <p className="font-medium">{car.topSpeed}</p>
+              </div>
+              <div>
+                <p className="text-cyan-blue">Power</p>
+                <p className="font-medium">{car.power}</p>
+              </div>
+              <div>
+                <p className="text-cyan-blue">Max Torque</p>
+                <p className="font-medium">{car.maxTorque}</p>
+              </div>
+              <div>
+                <p className="text-cyan-blue">Displacement</p>
+                <p className="font-medium">{car.displacement}</p>
+              </div>
+            </div>
+
+            <div className="mt-8 font-montserrat">
+              {car.prices?.["2025"] && (
+                <div className="flex justify-between items-center text-sm text-gray-700">
+                  <div className="flex flex-col">
+                    <span className="font-medium">2025 Model</span>
+                    {activeTab !== "500 Vehicles" && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-gray-400 line-through">{car.prices["2025"]}</span>
+                        <span className="text-[10px] text-red-600 font-bold">{discountLabel} OFF</span>
+                      </div>
+                    )}
+                  </div>
+                  <span className="font-semibold text-cyan-blue">{calculatePrice(car.prices["2025"])}</span>
+                </div>
+              )}
+              {car.prices?.["2025"] && car.prices?.["2026"] && (
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+              )}
+              {car.prices?.["2026"] && (
+                <div className="flex justify-between items-center text-base">
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-gray-900">2026 Model</span>
+                    {activeTab !== "500 Vehicles" && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-gray-400 line-through">{car.prices["2026"]}</span>
+                        <span className="text-[10px] text-red-600 font-bold">{discountLabel} OFF</span>
+                      </div>
+                    )}
+                  </div>
+                  <span className="font-bold text-cyan-blue text-xl font-palanquin">
+                    {calculatePrice(car.prices["2026"])}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 /* =========================
    PAGE
    ========================= */
 
 const Models = () => {
+  const [activeTab, setActiveTab] = useState("500 Vehicles");
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -309,51 +273,41 @@ const Models = () => {
     <>
       <Helmet>
         <title>Our Car Models</title>
-        <meta
-          name="description"
-          content="Browse our latest Jetour models, including PHEV and fuel-powered SUVs."
-        />
+        <meta name="description" content="Browse our latest Jetour models..." />
       </Helmet>
 
       <div className="bg-gray-100 py-16">
-        <div className="max-w-7xl mx-auto px-6 space-y-24">
+        <div className="max-w-7xl mx-auto px-6">
+          
+          <VehicleTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-          {/* PHEV */}
-          <section>
-            <h1 className="text-4xl font-bold mb-14 text-center font-palanquin">
-              {modelsData.phev.title}
-            </h1>
+          <section className="space-y-24">
+            <div>
+              <h1 className="text-4xl font-bold mb-14 text-center font-palanquin">
+                {modelsData.phev.title}
+              </h1>
+              {Object.entries(modelsData.phev.series).map(([series, cars]) => (
+                <div key={series} className="mb-16">
+                  <h2 className="text-3xl font-bold mb-8 font-palanquin">{series}</h2>
+                  <CarGrid models={cars} activeTab={activeTab} />
+                </div>
+              ))}
+            </div>
 
-            {Object.entries(modelsData.phev.series).map(([series, cars]) => (
-              <div key={series} className="mb-16">
-                <h2 className="text-3xl font-bold mb-8 font-palanquin">
-                  {series}
-                </h2>
-                <CarGrid models={cars} />
-              </div>
-            ))}
-          </section>
-
-          {/* FUEL */}
-          <section>
-            <h1 className="text-4xl font-bold mb-14 text-center font-palanquin">
-              {modelsData.fuel.title}
-            </h1>
-
-            {Object.entries(modelsData.fuel.series).map(([series, cars]) => (
-              <div key={series}>
-                <h2 className="text-3xl font-bold mb-8 font-palanquin">
-                  {series}
-                </h2>
-                <CarGrid models={cars} />
-              </div>
-            ))}
+            <div>
+              <h1 className="text-4xl font-bold mb-14 text-center font-palanquin">
+                {modelsData.fuel.title}
+              </h1>
+              {Object.entries(modelsData.fuel.series).map(([series, cars]) => (
+                <div key={series}>
+                  <h2 className="text-3xl font-bold mb-8 font-palanquin">{series}</h2>
+                  <CarGrid models={cars} activeTab={activeTab} />
+                </div>
+              ))}
+            </div>
           </section>
         </div>
       </div>
-
-      {/* ===== KEEPING YOUR ABOUT SECTION 100% UNCHANGED ===== */}
-      {/* (Your About Jetour section continues exactly as before) */}
     </>
   );
 };
