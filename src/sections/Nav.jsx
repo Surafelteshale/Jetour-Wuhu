@@ -37,7 +37,7 @@ const Nav = () => {
     }
   };
 
-  const handleSignInClick = () => navigate("/signin");
+  const handleSignInClick = () => window.open("/signin", "_blank", "noopener,noreferrer");
 
   useEffect(() => {
     const handleClickOutside = (e) => {

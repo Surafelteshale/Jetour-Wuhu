@@ -32,7 +32,7 @@ const Signin = () => {
       login(result.user);
 
       // ✅ Redirect to home
-      navigate("/");
+      navigate("/models");
     } else {
       setError(result.message);
     }
@@ -52,7 +52,7 @@ const Signin = () => {
 
       <div className="relative z-10 w-full max-w-md p-10 rounded-3xl bg-white/10 backdrop-blur-xl shadow-2xl border border-white/20 flex flex-col items-center">
         <h1 className="text-4xl font-bold text-black mb-6 font-palanquin">
-          Welcome Back
+          Welcome
         </h1>
 
         <p className="text-black/70 mb-8 text-center">
