@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { headerLogo } from "../assets/images";
-import { hamburger } from "../assets/icons"; // Importing hamburger icon
+import { hamburger } from "../assets/icons";
 
 import G700 from "../assets/images/car_model/g700.webp";
 import L6 from "../assets/images/car_model/l6.webp";
@@ -269,7 +269,7 @@ const Models = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu state
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
@@ -287,7 +287,7 @@ const Models = () => {
   }, []);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Helmet>
         <title>Our Car Models</title>
         <meta name="description" content="Browse our latest Jetour models..." />
@@ -296,9 +296,8 @@ const Models = () => {
       {/* GLASSMORPHISM NAV BAR */}
       <nav className="sticky top-0 z-[100] py-2 bg-black/70 backdrop-blur-lg border-b border-white/10 px-6 py-4 lg:px-24">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-             
           
-          {/* Right Side: Logo */}
+          {/* Logo */}
           <button onClick={() => navigate("/")}>
             <img
               src={headerLogo}
@@ -306,12 +305,13 @@ const Models = () => {
               className="w-[120px] h-[26px] md:w-[140px] md:h-[30px]"
             />
           </button>
-          {/* Hamburger for Mobile (Left Side) */}
+
+          {/* Hamburger for Mobile */}
           <button className="lg:hidden p-2" onClick={toggleMenu} aria-label="Toggle Menu">
             <img src={hamburger} alt="Menu" width={24} height={24} className="invert" />
           </button>
 
-          {/* Left Side: Desktop Auth Logic */}
+          {/* Desktop Auth Logic */}
           <div className="hidden lg:block">
             {user ? (
               <div className="flex items-center space-x-4">
@@ -348,13 +348,11 @@ const Models = () => {
               </button>
             )}
           </div>
-
         </div>
 
         {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
           <div className="lg:hidden absolute left-0 right-0 top-full bg-black/90 backdrop-blur-xl border-b border-white/10 px-6 py-6 flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4">
-            
             {user ? (
               <div className="flex flex-col space-y-4">
                 <div className="flex items-center space-x-3 text-white font-montserrat">
@@ -382,7 +380,8 @@ const Models = () => {
         )}
       </nav>
 
-      <div className="bg-gray-100 py-16">
+      {/* Main Content */}
+      <main className="bg-gray-100 py-16 flex-grow">
         <div className="max-w-7xl mx-auto px-6">
           <VehicleTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -412,8 +411,15 @@ const Models = () => {
             </div>
           </section>
         </div>
-      </div>
-    </>
+      </main>
+
+      {/* MINIMAL FOOTER */}
+      <footer className="bg-black/75 text-white/50 py-8 border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm font-montserrat">
+          <p>{new Date().getFullYear()} Jetour Wuhu.</p>
+        </div>
+      </footer>
+    </div>
   );
 };
 
