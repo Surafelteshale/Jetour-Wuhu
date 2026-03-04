@@ -90,48 +90,12 @@ const Nav = () => {
         </div>
 
         {/* Desktop Sign In */}
-        {user ? (
-          <div className="hidden lg:flex items-center space-x-4">
-            <button
-              onClick={() => navigate("/models")}
-              className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-7 py-2 rounded-full transition-all duration-300 hover:opacity-90"
-            >
-              View Models
-            </button>
-            <div className="relative" ref={dropdownRef}>
-              {/* Avatar */}
-              <div
-                onClick={() => setOpen((prev) => !prev)}
-                className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold cursor-pointer select-none"
-              >
-                {user.firstName?.charAt(0).toUpperCase()}
-              </div>
-
-              {/* Dropdown */}
-              {open && (
-                <div className="absolute right-0 mt-3 w-32 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50">
-                  <button
-                    onClick={() => {
-                      logout();
-                      setOpen(false);
-                      navigate("/");
-                    }}
-                    className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100 transition"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
           <button
             onClick={handleSignInClick}
             className="hidden lg:block bg-cyan-blue text-white font-montserrat text-sm font-semibold px-7 py-2 rounded-full transition-all duration-300 hover:opacity-90"
           >
             Sign In
           </button>
-        )}
 
 
         {/* Hamburger */}
@@ -154,48 +118,12 @@ const Nav = () => {
           ))}
 
           {/* Mobile Sign In */}
-          {user ? (
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => navigate("/models")}
-              className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-7 py-2 rounded-full transition-all duration-300 hover:opacity-90"
-            >
-              View Models
-            </button>
-            <div className="relative" ref={dropdownRef}>
-              {/* Avatar */}
-              <div
-                onClick={() => setOpen((prev) => !prev)}
-                className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold cursor-pointer select-none"
-              >
-                {user.firstName?.charAt(0).toUpperCase()}
-              </div>
-
-              {/* Dropdown */}
-              {open && (
-                <div className="absolute right-0 mt-3 w-32 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50">
-                  <button
-                    onClick={() => {
-                      logout();
-                      setOpen(false);
-                      navigate("/");
-                    }}
-                    className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100 transition"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
           <button
             onClick={handleSignInClick}
             className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-7 py-2 rounded-full transition-all duration-300 hover:opacity-90"
           >
             Sign In
           </button>
-        )}  
         </div>
       )}
     </header>

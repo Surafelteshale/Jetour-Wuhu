@@ -5,6 +5,7 @@ import Signin from "./pages/Signin";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 import { AuthProvider, useAuth  } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // --- LANDING PAGE COMPONENT ---
 const LandingPage = () => {
@@ -53,7 +54,14 @@ const LayoutWrapper = () => {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/models" element={<Models />} />
+        <Route 
+          path="/models" 
+          element={
+            <ProtectedRoute>
+              <Models />
+            </ProtectedRoute>
+          } 
+        />
         <Route path="/signin" element={<Signin />} />
       </Routes>
 

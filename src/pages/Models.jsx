@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { headerLogo } from "../assets/images";
+import { hamburger } from "../assets/icons"; // Importing hamburger icon
 
 import G700 from "../assets/images/car_model/g700.webp";
 import L6 from "../assets/images/car_model/l6.webp";
@@ -165,15 +169,14 @@ const VehicleTabs = ({ activeTab, setActiveTab }) => {
 };
 
 const CarGrid = ({ models, activeTab }) => {
-  // Logic to calculate discount based on tab
   const calculatePrice = (basePrice) => {
     const numericValue = parseFloat(basePrice.replace(/[$,]/g, ""));
     let finalPrice = numericValue;
 
     if (activeTab === "1000 Vehicles") {
-      finalPrice = numericValue * 0.85; // 15% discount
+      finalPrice = numericValue * 0.85; 
     } else if (activeTab === "2000 Vehicles") {
-      finalPrice = numericValue * 0.70; // 30% discount
+      finalPrice = numericValue * 0.70; 
     }
 
     return `$${finalPrice.toLocaleString(undefined, {
@@ -182,7 +185,6 @@ const CarGrid = ({ models, activeTab }) => {
     })}`;
   };
 
-  // Determine discount percentage for display
   const discountLabel = 
     activeTab === "1000 Vehicles" ? "15%" : 
     activeTab === "2000 Vehicles" ? "30%" : "0%";
@@ -264,9 +266,24 @@ const CarGrid = ({ models, activeTab }) => {
 
 const Models = () => {
   const [activeTab, setActiveTab] = useState("500 Vehicles");
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu state
+  const dropdownRef = useRef(null);
+
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -276,31 +293,119 @@ const Models = () => {
         <meta name="description" content="Browse our latest Jetour models..." />
       </Helmet>
 
+      {/* GLASSMORPHISM NAV BAR */}
+      <nav className="sticky top-0 z-[100] py-2 bg-black/70 backdrop-blur-lg border-b border-white/10 px-6 py-4 lg:px-24">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+             
+          
+          {/* Right Side: Logo */}
+          <button onClick={() => navigate("/")}>
+            <img
+              src={headerLogo}
+              alt="Jetour Logo"
+              className="w-[120px] h-[26px] md:w-[140px] md:h-[30px]"
+            />
+          </button>
+          {/* Hamburger for Mobile (Left Side) */}
+          <button className="lg:hidden p-2" onClick={toggleMenu} aria-label="Toggle Menu">
+            <img src={hamburger} alt="Menu" width={24} height={24} className="invert" />
+          </button>
+
+          {/* Left Side: Desktop Auth Logic */}
+          <div className="hidden lg:block">
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <div className="relative" ref={dropdownRef}>
+                  <div
+                    onClick={() => setOpen((prev) => !prev)}
+                    className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold cursor-pointer select-none ring-2 ring-cyan-blue ring-offset-0"
+                  >
+                    {user.firstName?.charAt(0).toUpperCase()}
+                  </div>
+
+                  {open && (
+                    <div className="absolute left-0 mt-3 w-32 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50">
+                      <button
+                        onClick={() => {
+                          logout();
+                          setOpen(false);
+                          navigate("/");
+                        }}
+                        className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100 transition text-black"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <button 
+                onClick={() => navigate("/signin")}
+                className="bg-cyan-blue text-white font-montserrat text-sm font-semibold px-7 py-2 rounded-full transition-all duration-300 hover:opacity-90"
+              >
+                Sign In
+              </button>
+            )}
+          </div>
+
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMenuOpen && (
+          <div className="lg:hidden absolute left-0 right-0 top-full bg-black/90 backdrop-blur-xl border-b border-white/10 px-6 py-6 flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4">
+            
+            {user ? (
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center space-x-3 text-white font-montserrat">
+                  <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold">
+                    {user.firstName?.charAt(0).toUpperCase()}
+                  </div>
+                  <span>{user.firstName}</span>
+                </div>
+                <button
+                  onClick={() => { logout(); navigate("/"); setIsMenuOpen(false); }}
+                  className="bg-red-500/20 text-red-400 text-center font-montserrat text-sm py-2 rounded-lg border border-red-500/30"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => { navigate("/signin"); setIsMenuOpen(false); }}
+                className="bg-cyan-blue text-white text-center font-montserrat font-semibold py-3 rounded-full"
+              >
+                Sign In
+              </button>
+            )}
+          </div>
+        )}
+      </nav>
+
       <div className="bg-gray-100 py-16">
         <div className="max-w-7xl mx-auto px-6">
-          
           <VehicleTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
           <section className="space-y-24">
             <div>
-              <h1 className="text-4xl font-bold mb-14 text-center font-palanquin">
+              <h1 className="text-3xl md:text-4xl font-bold mb-14 text-center font-palanquin">
                 {modelsData.phev.title}
               </h1>
               {Object.entries(modelsData.phev.series).map(([series, cars]) => (
                 <div key={series} className="mb-16">
-                  <h2 className="text-3xl font-bold mb-8 font-palanquin">{series}</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-8 font-palanquin">{series}</h2>
                   <CarGrid models={cars} activeTab={activeTab} />
                 </div>
               ))}
             </div>
 
             <div>
-              <h1 className="text-4xl font-bold mb-14 text-center font-palanquin">
+              <h1 className="text-3xl md:text-4xl font-bold mb-14 text-center font-palanquin">
                 {modelsData.fuel.title}
               </h1>
               {Object.entries(modelsData.fuel.series).map(([series, cars]) => (
                 <div key={series}>
-                  <h2 className="text-3xl font-bold mb-8 font-palanquin">{series}</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-8 font-palanquin">{series}</h2>
                   <CarGrid models={cars} activeTab={activeTab} />
                 </div>
               ))}
