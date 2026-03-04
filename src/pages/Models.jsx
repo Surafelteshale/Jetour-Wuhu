@@ -324,19 +324,42 @@ const Models = () => {
                   </div>
 
                   {open && (
-                    <div className="absolute left-0 mt-3 w-32 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50">
-                      <button
-                        onClick={() => {
-                          logout();
-                          setOpen(false);
-                          navigate("/");
-                        }}
-                        className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100 transition text-black"
-                      >
-                        Logout
-                      </button>
+                    <div className="absolute left-0 lg:left-0 mt-3 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
+                      {/* User Header Section */}
+                      <div className="px-4 py-3 bg-gray-50/50 border-b border-gray-100">
+                        <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold font-montserrat">
+                          Account
+                        </p>
+                        <p className="text-sm font-semibold text-gray-800 truncate font-palanquin">
+                          {user.firstName} {user.lastName}
+                        </p>
+                      </div>
+
+                      {/* Actions Section */}
+                      <div className="p-2">
+                        <button
+                          onClick={() => {
+                            logout();
+                            setOpen(false);
+                            navigate("/");
+                          }}
+                          className="group w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                        >
+                          <span>Logout</span>
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            strokeWidth={2} 
+                            stroke="currentColor" 
+                            className="w-4 h-4 transition-transform group-hover:translate-x-1"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
-                  )}
+)}
                 </div>
               </div>
             ) : (
